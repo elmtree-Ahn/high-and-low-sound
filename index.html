@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>도레미 악기를 만들어요! | 어게인 실험과학 수학학원</title>
+<meta name="description" content="손으로 만지며 알아보는 높은 소리와 낮은 소리 — 팬플룻과 글라스 하프로 도레미 만들기">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#e3f4fd; --sky2:#bfe4fb; --blue:#3a9ae0; --blue-d:#2476b8; --line:#d3e7f5;
+  --orange:#ff9a3c; --orange-d:#d97615; --orange-s:#fff1e0;
+  --aqua:#2cc7d8; --aqua-s:#d9f7fa; --aqua-d:#109aab; --red:#ff2d3f; --ink:#33414f; --sub:#6c7a8a;
+  --mint:#dcf5ea; --mint2:#8fdcb8; --u:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-weight:500;background:#fff}
+body{min-height:100vh;display:flex;flex-direction:column;-webkit-user-select:none;user-select:none;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.jua,header,nav,.bbtn,.msg,.card,.quiz,footer,.wcard,.mean,.tuner,.gcol,.flute,.notes{font-family:"Jua",sans-serif}
+
+.bbtn{font-size:22px;min-height:64px;min-width:140px;padding:10px 26px;color:#fff;background:var(--blue);border-radius:999px;
+  box-shadow:inset 0 -6px 0 rgba(0,0,0,.12),0 5px 0 var(--blue-d);word-break:keep-all}
+.bbtn:active{transform:translateY(3px)}
+.bbtn.orange{background:var(--orange);box-shadow:inset 0 -6px 0 rgba(0,0,0,.1),0 5px 0 var(--orange-d)}
+.bbtn.white{background:#fff;color:var(--blue-d);box-shadow:inset 0 -6px 0 rgba(0,0,0,.05),0 5px 0 var(--line);border:3px solid var(--sky2)}
+.bbtn:disabled{background:#c9d3dc;box-shadow:0 5px 0 #a9b5c0;color:#fff;cursor:default;transform:none}
+
+header{position:sticky;top:0;z-index:30;background:#fff;box-shadow:0 3px 0 var(--line);padding:10px 16px}
+.head-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.titles{flex:1;min-width:0}
+.brand{font-size:16px;color:var(--sub)}
+h1{margin:0;font-weight:400;font-size:clamp(24px,4vw,34px);color:var(--blue-d);line-height:1.15}
+.share{min-width:0;font-size:18px;min-height:54px;padding:8px 22px}
+
+nav{max-width:1100px;width:100%;margin:14px auto 0;padding:0 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tab{position:relative;min-height:66px;border-radius:20px;background:var(--sky);font-size:clamp(15px,2.1vw,20px);line-height:1.2;padding:6px;
+  border:3px solid transparent;word-break:keep-all;text-align:center}
+.tab.on{background:var(--orange-s);border-color:var(--orange);color:var(--orange-d)}
+.tab .star{position:absolute;top:-12px;right:-2px;font-size:24px;color:#ffb800;display:none}
+.tab.done .star{display:block;animation:pop .5s}
+
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:16px}
+.panel{display:none}
+.panel.on{display:block;animation:fadein .3s}
+.msg{background:var(--sky);border-radius:20px;padding:12px 18px;font-size:clamp(18px,2.4vw,23px);line-height:1.45;word-break:keep-all;margin-bottom:12px;min-height:58px}
+.row{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.card{display:none;margin:16px auto 0;max-width:880px;border-radius:24px;background:var(--mint);border:4px solid var(--mint2);padding:16px 20px;
+  font-size:clamp(20px,2.7vw,26px);text-align:center;line-height:1.5;color:#1f6b4b;word-break:keep-all}
+.card.on{display:block;animation:pop .5s}
+
+/* 1 팬플룻 */
+.flute{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;max-width:900px;margin:0 auto;padding:44px 10px 16px;border-radius:28px;background:#f4fbff;box-shadow:0 0 0 3px var(--line);
+  min-height:calc(20 * var(--u) + 70px);position:relative}
+.fslot{display:flex;justify-content:center;align-items:flex-start;min-width:0;border-radius:14px;transition:background .2s}
+.fslot.hot{background:var(--orange-s)}
+.tube{position:relative;width:min(76%,70px);height:calc(var(--l) * var(--u));border:4px solid #8fd3e3;border-top-width:6px;border-radius:6px 6px 12px 12px;
+  background:rgba(217,247,250,.55);touch-action:none;cursor:grab;transition:transform .15s}
+.tube::after{content:"";position:absolute;left:-4px;right:-4px;bottom:-4px;height:16px;border-radius:0 0 12px 12px;background:#55657a}
+.tube .air{position:absolute;left:5px;right:5px;top:4px;bottom:16px;border-radius:4px;
+  background:repeating-linear-gradient(0deg,rgba(44,199,216,.42) 0 7px,rgba(44,199,216,.14) 7px 14px)}
+.tube.play .air{animation:wig var(--d) ease-in-out infinite alternate}
+.tube.play{border-color:var(--orange)}
+.tube .len{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:clamp(13px,2vw,19px);color:var(--aqua-d);background:#fff;border-radius:8px;padding:1px 5px;white-space:nowrap}
+.tube .nt{position:absolute;left:50%;top:-40px;transform:translateX(-50%);font-size:clamp(18px,2.8vw,26px);color:var(--orange-d);opacity:0;transition:opacity .4s;white-space:nowrap}
+.flute.ok .tube .nt{opacity:1}
+.tube.drag{z-index:50;cursor:grabbing;transition:none;box-shadow:0 10px 18px rgba(0,0,0,.2)}
+.tube.back{animation:shake .4s}
+.flute-ends{display:flex;justify-content:space-between;max-width:900px;margin:6px auto 0;font-family:"Jua",sans-serif;color:var(--sub);font-size:18px;padding:0 8px}
+
+/* 2 글라스 하프 */
+.tuner{max-width:620px;margin:0 auto 14px;background:#33414f;border-radius:24px;padding:12px 18px;color:#fff;text-align:center}
+.tuner .scr{background:#d9f2c4;color:#24402a;border-radius:14px;padding:6px 10px;display:flex;align-items:baseline;justify-content:center;gap:16px}
+.tuner .nn{font-size:clamp(40px,7vw,60px)}
+.tuner .hz{font-size:clamp(30px,5vw,44px)}
+.tuner .hz small{font-size:.6em}
+.tuner .tip{margin-top:8px;font-size:clamp(17px,2.3vw,21px);word-break:keep-all;min-height:1.4em}
+.harp{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;max-width:960px;margin:0 auto}
+.gcol{background:#f4fbff;border-radius:22px;box-shadow:0 0 0 3px var(--line);padding:8px 6px 12px;text-align:center;min-width:0}
+.gcol.ok{box-shadow:0 0 0 4px var(--mint2);background:#f1fbf6}
+.gcol.sel{box-shadow:0 0 0 4px var(--orange)}
+.gcol.ok.sel{box-shadow:0 0 0 4px var(--orange)}
+.gl{display:block;width:100%;padding:0}
+.gl svg{display:block;width:100%;height:auto;max-height:200px}
+.gl.ring svg{animation:wig var(--d) linear 10 alternate}
+.gl.hop svg{animation:hop .35s}
+.gname{font-size:clamp(18px,2.6vw,24px);color:var(--blue-d);margin:2px 0 6px}
+.gname .chk{color:#1f8a57;visibility:hidden}
+.gcol.ok .gname .chk{visibility:visible}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:20px;border-radius:99px;background:linear-gradient(90deg,var(--aqua-s),var(--aqua));outline:0;touch-action:none;margin:16px 0 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:46px;border-radius:50%;background:#fff;border:6px solid var(--aqua-d);box-shadow:0 4px 0 #0b7280}
+input[type=range]::-moz-range-thumb{width:40px;height:40px;border-radius:50%;background:#fff;border:6px solid var(--aqua-d)}
+.wlab{display:flex;justify-content:space-between;font-size:14px;color:var(--sub);margin-top:4px}
+.notes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:clamp(22px,3.4vw,32px);color:var(--sub)}
+.notes span{min-width:56px;padding:6px 10px;border-radius:14px;background:var(--sky);text-align:center}
+.notes span.on{background:var(--orange);color:#fff;animation:pop .3s}
+
+/* 3 짝 맞추기 */
+.match{max-width:880px;margin:0 auto;display:grid;gap:14px}
+.mean{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:14px;align-items:center;background:#f4fbff;border-radius:22px;box-shadow:0 0 0 3px var(--line);padding:12px}
+.mean p{margin:0;font-size:clamp(19px,2.6vw,25px);line-height:1.4;word-break:keep-all}
+.mslot{min-height:76px;border:3px dashed var(--blue);border-radius:16px;background:rgba(227,244,253,.7);display:flex;align-items:stretch}
+.mslot.full{border-color:transparent;background:none}
+.mslot.hot{background:var(--orange-s);border-color:var(--orange)}
+.mean.right{box-shadow:0 0 0 4px var(--mint2);background:#f1fbf6}
+.wpool{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:880px;margin:18px auto 0;min-height:96px;padding:10px;border-radius:20px;background:var(--sky)}
+.wpool .wcard{flex:0 1 220px}
+.wcard{position:relative;z-index:2;flex:1;min-height:70px;border-radius:14px;background:#fff;border:3px solid var(--orange);color:var(--orange-d);
+  font-size:clamp(19px,2.6vw,25px);line-height:1.2;display:grid;place-items:center;text-align:center;padding:6px 8px;word-break:keep-all;
+  box-shadow:0 4px 0 var(--orange-d);touch-action:none;cursor:grab}
+.wcard.drag{z-index:50;cursor:grabbing;box-shadow:0 10px 18px rgba(0,0,0,.2)}
+.wcard.back{animation:shake .4s}
+
+/* 4 OX */
+.quiz{max-width:820px;margin:0 auto;text-align:center}
+.score{font-size:22px;color:var(--sub)}
+.score b{font-weight:400;color:var(--orange-d);font-size:1.3em}
+.q{background:var(--sky);border-radius:28px;padding:28px 20px;margin:12px 0;font-size:clamp(24px,3.6vw,34px);line-height:1.4;word-break:keep-all;min-height:150px;display:grid;place-items:center}
+.ox{display:flex;gap:20px;justify-content:center}
+.ox button{width:min(42%,220px);aspect-ratio:1.3;border-radius:32px;font-size:clamp(70px,13vw,110px);line-height:1;color:#fff}
+.ox .o{background:var(--blue);box-shadow:0 8px 0 var(--blue-d)}
+.ox .x{background:var(--red);box-shadow:0 8px 0 #b81426}
+.ox button:active{transform:translateY(4px)}
+.ox button:disabled{opacity:.4}
+.fb{min-height:70px;margin-top:16px;font-size:clamp(20px,2.8vw,26px);line-height:1.4;word-break:keep-all}
+.fb.good{color:#1f8a57}.fb.bad{color:#c8283a}
+
+footer{background:var(--sky);padding:16px;text-align:center;font-size:17px;color:var(--blue-d);line-height:1.6}
+.toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:var(--ink);color:#fff;font-family:"Jua",sans-serif;font-size:20px;padding:12px 26px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .3s;z-index:99}
+.toast.on{opacity:1}
+.conf{position:fixed;top:-20px;width:14px;height:14px;z-index:98;pointer-events:none;animation:fall linear forwards}
+.spark{position:fixed;z-index:98;pointer-events:none;font-size:26px;color:#ffc400;animation:spark .8s ease-out forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@keyframes spark{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1.2);opacity:0}}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes hop{50%{transform:translateY(-10px)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes wig{from{transform:translateX(-3px)}to{transform:translateX(3px)}}
+svg text{font-family:"Jua",sans-serif}
+@media (max-width:700px){
+  :root{--u:10px}
+  .bbtn{font-size:19px;min-width:0;padding:10px 20px}
+  .share{font-size:16px;padding:8px 14px}
+  .flute{gap:3px;padding:40px 4px 12px}
+  .harp{grid-template-columns:repeat(3,1fr)}
+  .mean{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header><div class="head-in">
+  <div class="titles"><div class="brand">어게인 실험과학 수학학원</div><h1>도레미 악기를 만들어요!</h1></div>
+  <button class="bbtn orange share" id="share">공유하기</button>
+</div></header>
+
+<nav>
+  <button class="tab on" data-t="0">팬플룻<span class="star">★</span></button>
+  <button class="tab" data-t="1">글라스 하프<span class="star">★</span></button>
+  <button class="tab" data-t="2">개념어 짝 맞추기<span class="star">★</span></button>
+  <button class="tab" data-t="3">OX 퀴즈<span class="star">★</span></button>
+</nav>
+
+<main>
+<!-- 1 팬플룻 -->
+<section class="panel on">
+  <div class="msg" id="m0">관을 톡 누르면 소리가 나요. 관을 끌어서 가장 긴 관부터 가장 짧은 관까지 차례로 세워 보세요.</div>
+  <div class="flute" id="flute"></div>
+  <div class="flute-ends"><span>← 가장 긴 관</span><span>가장 짧은 관 →</span></div>
+  <div class="row"><button class="bbtn white" id="mix">다시 섞기</button><button class="bbtn" id="scale" style="display:none">도레미 들어 보기</button></div>
+  <div class="card" id="c0">관이 짧을수록 공기 기둥이 빠르게 떨려 높은 소리가 나요!</div>
+</section>
+
+<!-- 2 글라스 하프 -->
+<section class="panel">
+  <div class="msg" id="m1">물 막대를 밀어 잔마다 물의 양을 바꿔 보세요. 튜닝기를 보며 도 레 미 파 솔 라를 맞춰요. 잔을 누르면 소리가 나요.</div>
+  <div class="tuner"><div class="scr"><span class="nn" id="tn">-</span><span class="hz" id="th">- <small>Hz</small></span></div><div class="tip" id="tt">잔을 눌러 보세요</div></div>
+  <div class="harp" id="harp"></div>
+  <div class="row"><button class="bbtn orange" id="song" disabled>「학교 종」 연주하기</button></div>
+  <div class="row notes" id="songNotes"></div>
+  <div class="card" id="c1">물이 많을수록 천천히 떨려 낮은 소리가 나요!</div>
+</section>
+
+<!-- 3 개념어 짝 맞추기 -->
+<section class="panel">
+  <div class="msg" id="m2">낱말 카드를 끌어서 알맞은 뜻 옆 빈칸에 놓아 보세요.</div>
+  <div class="match" id="match"></div>
+  <div class="wpool" id="wpool"></div>
+  <div class="row"><button class="bbtn white" id="reset3">다시 하기</button></div>
+  <div class="card" id="c2">공기 기둥의 길이를 바꾸거나 잔의 물을 더하고 덜어서<br>소리의 높낮이를 맞추는 일이 조율이에요.</div>
+</section>
+
+<!-- 4 OX 퀴즈 -->
+<section class="panel">
+  <div class="quiz">
+    <div class="score"><span id="qn">1</span> / 5 번째 문제 · 점수 <b id="sc">0</b>점</div>
+    <div class="q" id="q"></div>
+    <div class="ox" id="ox"><button class="o" data-a="O">O</button><button class="x" data-a="X">X</button></div>
+    <div class="fb" id="qfb"></div>
+    <div class="row"><button class="bbtn" id="next" style="display:none">다음 문제</button></div>
+  </div>
+</section>
+</main>
+
+<footer>어게인 실험과학 수학학원<br>교육문의 010.2976.5774</footer>
+<div class="toast" id="toast">주소가 복사됐어요</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* ---------- 소리 ---------- */
+let ac;
+function audio(){ if(!ac){const A=window.AudioContext||window.webkitAudioContext; if(A) ac=new A();} if(ac&&ac.state==='suspended') ac.resume(); return ac; }
+function tone(freq,dur,vol,type='sine',when=0,freqEnd,attack=0.03){
+  const a=audio(); if(!a) return;
+  const o=a.createOscillator(), g=a.createGain(), t=a.currentTime+when;
+  o.type=type; o.frequency.setValueAtTime(freq,t); if(freqEnd) o.frequency.exponentialRampToValueAtTime(freqEnd,t+dur);
+  g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+attack); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(g).connect(a.destination); o.start(t); o.stop(t+dur+0.05);
+}
+const flute=(f,when=0)=>{ tone(f,.9,.22,'sine',when,0,.08); tone(f*2,.7,.03,'sine',when,0,.1); };       // 부드러운 피리 소리
+const glass=(f,when=0,dur=1.6)=>{ tone(f,dur,.2,'sine',when,0,.15); tone(f*2.76,dur*.6,.025,'sine',when,0,.15); }; // 잔 테두리 소리
+const cheer=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.3,.2,'triangle',i*.11));
+const boo=()=>tone(220,.35,.15,'sawtooth',0,140);
+
+/* ---------- 보상 ---------- */
+function confetti(){
+  const cols=['#3a9ae0','#ff9a3c','#2cc7d8','#ffd23f','#8fdcb8'];
+  for(let i=0;i<60;i++){ const d=document.createElement('div'); d.className='conf';
+    d.style.left=Math.random()*100+'vw'; d.style.background=cols[i%5]; d.style.borderRadius=i%2?'50%':'3px';
+    d.style.animationDuration=1.4+Math.random()*1.6+'s'; d.style.animationDelay=Math.random()*.4+'s';
+    document.body.appendChild(d); setTimeout(()=>d.remove(),3600); }
+}
+function sparkle(node){
+  const r=node.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+  for(let i=0;i<8;i++){ const s=document.createElement('div'); s.className='spark'; s.textContent='✦';
+    const a=i/8*6.28; s.style.left=cx-10+'px'; s.style.top=cy-14+'px';
+    s.style.setProperty('--dx',Math.cos(a)*60+'px'); s.style.setProperty('--dy',Math.sin(a)*60+'px');
+    document.body.appendChild(s); setTimeout(()=>s.remove(),900); }
+}
+const tabs=$$('.tab'), panels=$$('.panel');
+function done(i){ const c=$('#c'+i); if(c) c.classList.add('on'); if(tabs[i].classList.contains('done')) return; tabs[i].classList.add('done'); confetti(); cheer(); }
+
+/* ---------- 탭 ---------- */
+tabs.forEach(b=>b.onclick=()=>{ const cur=+b.dataset.t; tabs.forEach((t,i)=>t.classList.toggle('on',i===cur)); panels.forEach((p,i)=>p.classList.toggle('on',i===cur)); audio(); });
+
+/* ---------- 공유 ---------- */
+$('#share').onclick=async()=>{
+  const url=location.href;
+  if(navigator.share){ try{ await navigator.share({title:document.title,url}); }catch(e){} return; }
+  try{ await navigator.clipboard.writeText(url); }
+  catch(e){ const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+  const t=$('#toast'); t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),1800);
+};
+
+/* ---------- 끌기 (1·3 탭 같이 씀) ---------- */
+// 누르고 거의 안 움직이면 onTap, 끌었다 놓으면 onDrop(카드, 놓은 칸)
+function dragify(root,sel,slots,canDrag,onTap,onDrop){
+  let d=null;
+  const slotAt=(x,y)=>slots().find(s=>{ const r=s.getBoundingClientRect(); return x>r.left-6&&x<r.right+6&&y>r.top-30&&y<r.bottom+30; });
+  root.addEventListener('pointerdown',e=>{
+    const c=e.target.closest(sel); if(!c) return;
+    e.preventDefault(); audio(); c.setPointerCapture(e.pointerId); d={c,x:e.clientX,y:e.clientY,moved:false};
+  });
+  root.addEventListener('pointermove',e=>{
+    if(!d) return; const dx=e.clientX-d.x, dy=e.clientY-d.y;
+    if(!d.moved&&Math.hypot(dx,dy)<10) return;
+    if(!canDrag()) return;
+    d.moved=true; d.c.classList.add('drag'); d.c.style.transform=`translate(${dx}px,${dy}px)`;
+    const s=slotAt(e.clientX,e.clientY); slots().forEach(x=>x.classList.toggle('hot',x===s));
+  });
+  const up=e=>{
+    if(!d) return; const {c,moved}=d; d=null;
+    c.classList.remove('drag'); c.style.transform=''; slots().forEach(x=>x.classList.remove('hot'));
+    if(!moved){ if(e.type==='pointerup') onTap(c); return; }
+    onDrop(c,slotAt(e.clientX,e.clientY));
+  };
+  root.addEventListener('pointerup',up); root.addEventListener('pointercancel',up);
+}
+
+/* ---------- 1 팬플룻 ---------- */
+const LEN=[20,17.5,15.5,14.5,13,12,10.5,10];               // 긴 관 → 짧은 관
+const NOTE=['도','레','미','파','솔','라','시','높은 도'];
+const HZ=[262,294,330,349,392,440,494,523];
+const fl=$('#flute');
+for(let i=0;i<8;i++){ const s=document.createElement('div'); s.className='fslot'; fl.appendChild(s); }
+const fslots=$$('.fslot');
+function mix(){
+  fl.classList.remove('ok'); $('#c0').classList.remove('on'); $('#scale').style.display='none';
+  let o; do{ o=[0,1,2,3,4,5,6,7].sort(()=>Math.random()-.5); }while(o.every((v,i)=>v===i));
+  fslots.forEach((s,k)=>{ const i=o[k]; s.innerHTML=`<div class="tube" data-i="${i}" style="--l:${LEN[i]};--d:${(LEN[i]*.012).toFixed(3)}s"><div class="air"></div><span class="len">${LEN[i]}cm</span><span class="nt">${NOTE[i]}</span></div>`; });
+  $('#m0').textContent='관을 톡 누르면 소리가 나요. 관을 끌어서 가장 긴 관부터 가장 짧은 관까지 차례로 세워 보세요.';
+}
+function blow(t,when=0){
+  const i=+t.dataset.i; flute(HZ[i],when);
+  setTimeout(()=>{ t.classList.add('play'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('play'),1000); },when*1000);
+  return i;
+}
+dragify(fl,'.tube',()=>fslots,()=>!fl.classList.contains('ok'),
+  t=>{ const i=blow(t);
+    if(fl.classList.contains('ok')) $('#m0').textContent=`${NOTE[i]} 소리예요! ${LEN[i]}센티미터 관이에요.`;
+    else $('#m0').textContent = i<=2 ? `${LEN[i]}센티미터. 긴 관이라 공기 기둥이 천천히 떨려요. 낮은 소리!`
+      : i>=5 ? `${LEN[i]}센티미터. 짧은 관이라 공기 기둥이 빠르게 떨려요. 높은 소리!`
+      : `${LEN[i]}센티미터. 다른 관과 소리를 비교해 보세요.`; },
+  (t,s)=>{ if(!s||s===t.parentElement) return;
+    const from=t.parentElement, other=s.querySelector('.tube'); s.appendChild(t); if(other) from.appendChild(other);
+    tone(520,.1,.12,'triangle'); check1(); });
+function check1(){
+  const order=fslots.map(s=>+s.querySelector('.tube').dataset.i);
+  if(order.every((v,i)=>v===i)){
+    fl.classList.add('ok'); $('#scale').style.display='';
+    $('#m0').textContent='딩동댕! 긴 관부터 짧은 관까지 차례로 섰어요. 도레미가 들려요!';
+    playScale(); setTimeout(()=>{ done(0); sparkle(fl); },8*280);
+  } else {
+    const right=order.filter((v,i)=>v===i).length;
+    $('#m0').textContent=`제자리에 선 관 ${right}개! 더 긴 관이 왼쪽으로 가도록 바꿔 보세요.`;
+  }
+}
+function playScale(){ fslots.forEach((s,k)=>blow(s.querySelector('.tube'),k*.28)); }
+$('#mix').onclick=mix; $('#scale').onclick=playScale;
+mix();
+
+/* ---------- 2 글라스 하프 ---------- */
+const GN=['도','레','미','파','솔','라'], GHZ=[262,294,330,349,392,440];
+const hzOf=w=>460-2.1*w;                       // 물 0 → 460 Hz, 물 100 → 250 Hz (물이 많을수록 낮아짐)
+const wOf=f=>(460-f)/2.1;
+const START=[45,30,85,15,60,50];               // 처음엔 하나도 안 맞게
+const ALL=['도','레','미','파','솔','라','시'], ALLHZ=[262,294,330,349,392,440,494];
+const harp=$('#harp'); let sel=-1;
+GN.forEach((n,i)=>{
+  const c=document.createElement('div'); c.className='gcol';
+  c.innerHTML=`<button class="gl" aria-label="${n} 잔"><svg viewBox="0 0 120 200">
+    <defs><clipPath id="bowl${i}"><path d="M17,12 L103,12 C103,82 93,120 60,124 C27,120 17,82 17,12 Z"/></clipPath></defs>
+    <rect class="wt" x="0" width="120" fill="#2cc7d8" fill-opacity=".55" clip-path="url(#bowl${i})"/>
+    <path d="M17,12 L103,12 C103,82 93,120 60,124 C27,120 17,82 17,12 Z" fill="rgba(217,247,250,.35)" stroke="#8fd3e3" stroke-width="5"/>
+    <rect x="56" y="124" width="8" height="54" fill="#8fd3e3"/><ellipse cx="60" cy="184" rx="36" ry="9" fill="#8fd3e3"/>
+    <path d="M30,22 C30,60 34,86 44,100" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+  </svg></button>
+  <div class="gname">${n} 잔 <span class="chk">✔</span></div>
+  <input type="range" min="0" max="100" step="0.5" value="${START[i]}" aria-label="${n} 잔 물의 양">
+  <div class="wlab"><span>적게</span><span>많이</span></div>`;
+  harp.appendChild(c);
+});
+const gcols=$$('.gcol');
+const gw=i=>+gcols[i].querySelector('input').value;
+const gHz=i=>Math.abs(hzOf(gw(i))-GHZ[i])<0.6?GHZ[i]:Math.round(hzOf(gw(i)));
+function drawGlass(i){
+  const h=6+gw(i)*1.04, r=gcols[i].querySelector('.wt');   // 물 높이
+  r.setAttribute('y',124-h); r.setAttribute('height',h);
+  gcols[i].classList.toggle('ok',gHz(i)===GHZ[i]);
+}
+function showTuner(i){
+  const f=gHz(i), k=ALLHZ.reduce((b,v,j)=>Math.abs(v-f)<Math.abs(ALLHZ[b]-f)?j:b,0);
+  $('#tn').textContent=ALL[k]; $('#th').innerHTML=`${f} <small>Hz</small>`;
+  $('#tt').textContent = f===GHZ[i] ? `${GN[i]} 잔 딱 맞았어요!`
+    : f>GHZ[i] ? `${GN[i]}보다 높아요. 물을 조금 더 부어 보세요.` : `${GN[i]}보다 낮아요. 물을 조금 덜어 보세요.`;
+  gcols.forEach((c,j)=>c.classList.toggle('sel',j===i)); sel=i;
+}
+function ring(i,when=0,dur){
+  const f=gHz(i), b=gcols[i].querySelector('.gl'); glass(f,when,dur);
+  setTimeout(()=>{ b.style.setProperty('--d',(30/f).toFixed(3)+'s'); b.classList.remove('ring'); void b.offsetWidth; b.classList.add('ring'); },when*1000);
+}
+gcols.forEach((c,i)=>{
+  const inp=c.querySelector('input');
+  c.querySelector('.gl').onclick=()=>{ audio(); showTuner(i); ring(i); };
+  inp.oninput=()=>{ drawGlass(i); showTuner(i); };
+  inp.onchange=()=>{
+    if(Math.abs(hzOf(gw(i))-GHZ[i])<=10) inp.value=wOf(GHZ[i]);     // 가까우면 딱 맞춰 줌
+    drawGlass(i); showTuner(i); ring(i,0,.9); check2();
+  };
+  drawGlass(i);
+});
+function check2(){
+  const n=gcols.filter(c=>c.classList.contains('ok')).length;
+  if(n===6){
+    $('#song').disabled=false;
+    $('#m1').textContent='여섯 잔이 모두 맞았어요! 이제 「학교 종」을 연주해 보세요.';
+    if(!tabs[1].classList.contains('done')) sparkle(harp);
+    done(1);
+  } else { $('#song').disabled=true; $('#m1').textContent=`맞춘 잔 ${n}개! 튜닝기를 보며 나머지 잔도 맞춰 보세요.`; }
+}
+const SONG=[4,4,5,5,4,4,2], SDUR=[.5,.5,.5,.5,.5,.5,1];
+$('#songNotes').innerHTML=SONG.map(i=>`<span>${GN[i]}</span>`).join('');
+let playing=false;
+$('#song').onclick=()=>{
+  if(playing) return; playing=true; audio();
+  const sp=$$('#songNotes span'); let t=0;
+  SONG.forEach((g,k)=>{
+    ring(g,t,SDUR[k]+.3);
+    setTimeout(()=>{ sp.forEach((s,j)=>s.classList.toggle('on',j===k)); const b=gcols[g].querySelector('.gl'); b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop'); },t*1000);
+    t+=SDUR[k];
+  });
+  setTimeout(()=>{ sp.forEach(s=>s.classList.remove('on')); playing=false; confetti(); cheer(); $('#m1').textContent='멋진 연주였어요! 솔 솔 라 라 솔 솔 미'; },t*1000+300);
+};
+
+/* ---------- 3 개념어 짝 맞추기 ---------- */
+const WORDS=['소리의 높낮이','공기 기둥','조율'];
+const MEANS=['소리가 높고 낮은 정도','관 속에 들어 있는 기둥 모양의 공기','악기 소리를 정확한 높낮이로 맞추는 일'];
+const match=$('#match'), wpool=$('#wpool');
+const mslots=()=>$$('.mslot');
+function reset3(){
+  $('#c2').classList.remove('on');
+  const mo=[0,1,2].sort(()=>Math.random()-.5), wo=[0,1,2].sort(()=>Math.random()-.5);
+  match.innerHTML=mo.map(i=>`<div class="mean"><div class="mslot" data-i="${i}"></div><p>${MEANS[i]}</p></div>`).join('');
+  wpool.innerHTML=wo.map(i=>`<div class="wcard" data-i="${i}">${WORDS[i]}</div>`).join('');
+  $('#m2').textContent='낱말 카드를 끌어서 알맞은 뜻 옆 빈칸에 놓아 보세요.';
+}
+const solved3=()=>$$('.mean.right').length===3;
+dragify(panels[2],'.wcard',mslots,()=>!solved3(),()=>{},
+  (c,s)=>{ const from=c.parentElement;
+    if(s&&s!==from){ const old=s.querySelector('.wcard'); if(old){ if(from.classList.contains('mslot')) from.appendChild(old); else wpool.appendChild(old); } s.appendChild(c); tone(520,.1,.12,'triangle'); }
+    else if(!s&&from!==wpool) wpool.appendChild(c);
+    mslots().forEach(x=>x.classList.toggle('full',!!x.querySelector('.wcard')));
+    check3(); });
+function check3(){
+  const sl=mslots();
+  if(sl.some(s=>!s.querySelector('.wcard'))){ $('#m2').textContent='좋아요! 남은 카드도 놓아 보세요.'; return; }
+  const wrong=sl.filter(s=>s.querySelector('.wcard').dataset.i!==s.dataset.i);
+  if(!wrong.length){
+    sl.forEach(s=>s.parentElement.classList.add('right'));
+    $('#m2').textContent='정답! 세 낱말의 뜻을 모두 찾았어요.';
+    sparkle(match); done(2); return;
+  }
+  boo();
+  wrong.forEach(s=>{ const c=s.querySelector('.wcard'); wpool.appendChild(c); c.classList.add('back'); setTimeout(()=>c.classList.remove('back'),400); s.classList.remove('full'); });
+  $('#m2').textContent=`${wrong.length}장은 자리가 달라요. 뜻을 다시 읽고 놓아 보세요.`;
+}
+$('#reset3').onclick=reset3;
+reset3();
+
+/* ---------- 4 OX 퀴즈 ---------- */
+const QS=[
+ ['팬플룻은 관 속 공기가 떨려 소리가 난다','O','관이 아니라 관 속 공기 기둥이 떨려서 소리가 나요.'],
+ ['관이 길수록 높은 소리가 난다','X','관이 길수록 공기 기둥이 천천히 떨려 낮은 소리가 나요. 높은 소리는 짧은 관이에요.'],
+ ['잔에 물을 많이 부을수록 낮은 소리가 난다','O','물이 많을수록 함께 떨리는 덩어리가 무거워져 천천히 떨려요.'],
+ ['동생 팬플룻의 파 관을 실수로 더 짧게 잘랐다면 원래보다 높은 소리가 난다','O','관이 짧아지면 공기 기둥도 짧아져 빠르게 떨려요. 그래서 원래 파보다 높아져요.'],
+ ['높은 도는 낮은 도보다 천천히 떨린다','X','높은 도는 약 523헤르츠, 낮은 도는 약 262헤르츠예요. 높은 도가 약 두 배 빠르게 떨려요.']
+];
+let qi=0, score=0;
+function showQ(){
+  $('#ox').style.display=''; $('#qn').textContent=qi+1; $('#sc').textContent=score; $('#q').textContent=QS[qi][0];
+  $('#qfb').textContent=''; $('#qfb').className='fb'; $('#next').style.display='none'; $$('#ox button').forEach(b=>b.disabled=false);
+}
+$$('#ox button').forEach(b=>b.onclick=()=>{
+  const [,ans,why]=QS[qi], ok=b.dataset.a===ans; $$('#ox button').forEach(x=>x.disabled=true);
+  if(ok){ score++; cheer(); sparkle(b); } else boo();
+  $('#sc').textContent=score; $('#qfb').className='fb '+(ok?'good':'bad');
+  $('#qfb').textContent=(ok?'딩동댕! ':'아쉬워요. 정답은 '+ans+'예요. ')+why;
+  $('#next').textContent=qi<4?'다음 문제':'결과 보기'; $('#next').style.display='';
+});
+$('#next').onclick=()=>{
+  if(qi===5){ qi=0; score=0; showQ(); return; }
+  if(++qi<5){ showQ(); return; }
+  $('#q').textContent=`5문제 중 ${score}문제를 맞혔어요!`; $('#ox').style.display='none'; $('#qfb').className='fb good';
+  $('#qfb').textContent=score===5?'완벽해요! 도레미 악기 박사님이네요.':score>=3?'잘했어요! 틀린 문제는 앞의 악기로 다시 확인해 보세요.':'괜찮아요. 앞의 악기를 다시 연주해 보고 또 도전해요!';
+  $('#next').textContent='다시 하기'; if(score>=4) done(3);
+};
+showQ();
+</script>
+</body>
+</html>
