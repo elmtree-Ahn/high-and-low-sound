@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>도레미 악기를 만들어요! | 어게인 실험과학 수학학원</title>
+<title>높은 소리, 낮은 소리! | 어게인 실험과학 수학학원</title>
 <meta name="description" content="손으로 만지며 알아보는 높은 소리와 낮은 소리 — 팬플룻과 글라스 하프로 도레미 만들기">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,7 +152,7 @@ svg text{font-family:"Jua",sans-serif}
 </head>
 <body>
 <header><div class="head-in">
-  <div class="titles"><div class="brand">어게인 실험과학 수학학원</div><h1>도레미 악기를 만들어요!</h1></div>
+  <div class="titles"><div class="brand">어게인 실험과학 수학학원</div><h1>높은 소리, 낮은 소리!</h1></div>
   <button class="bbtn orange share" id="share">공유하기</button>
 </div></header>
 
@@ -435,7 +435,7 @@ const QS=[
  ['팬플룻은 관 속 공기가 떨려 소리가 난다','O','관이 아니라 관 속 공기 기둥이 떨려서 소리가 나요.'],
  ['관이 길수록 높은 소리가 난다','X','관이 길수록 공기 기둥이 천천히 떨려 낮은 소리가 나요. 높은 소리는 짧은 관이에요.'],
  ['잔에 물을 많이 부을수록 낮은 소리가 난다','O','물이 많을수록 함께 떨리는 덩어리가 무거워져 천천히 떨려요.'],
- ['동생 팬플룻의 파 관을 실수로 더 짧게 잘랐다면 원래보다 높은 소리가 난다','O','관이 짧아지면 공기 기둥도 짧아져 빠르게 떨려요. 그래서 원래 파보다 높아져요.'],
+ ['팬플룻의 파 관을 원래보다 더 짧게 자르면 원래보다 높은 소리가 난다','O','관이 짧아지면 공기 기둥도 짧아져 빠르게 떨려요. 그래서 원래 파보다 높아져요.'],
  ['높은 도는 낮은 도보다 천천히 떨린다','X','높은 도는 약 523헤르츠, 낮은 도는 약 262헤르츠예요. 높은 도가 약 두 배 빠르게 떨려요.']
 ];
 let qi=0, score=0;
@@ -454,7 +454,7 @@ $('#next').onclick=()=>{
   if(qi===5){ qi=0; score=0; showQ(); return; }
   if(++qi<5){ showQ(); return; }
   $('#q').textContent=`5문제 중 ${score}문제를 맞혔어요!`; $('#ox').style.display='none'; $('#qfb').className='fb good';
-  $('#qfb').textContent=score===5?'완벽해요! 도레미 악기 박사님이네요.':score>=3?'잘했어요! 틀린 문제는 앞의 악기로 다시 확인해 보세요.':'괜찮아요. 앞의 악기를 다시 연주해 보고 또 도전해요!';
+  $('#qfb').textContent=score===5?'완벽해요! 소리 높낮이 박사님이네요.':score>=3?'잘했어요! 틀린 문제는 앞의 악기로 다시 확인해 보세요.':'괜찮아요. 앞의 악기를 다시 연주해 보고 또 도전해요!';
   $('#next').textContent='다시 하기'; if(score>=4) done(3);
 };
 showQ();
